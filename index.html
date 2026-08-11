@@ -2,15 +2,29 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>makekoshary-3d</title>
   </head>
   <body>
+    
     <div id="menu">
       <h1>Make Koshary</h1>
       <p> Don't spill the ingredients!</p>
-      <button id="start-button">Start Game</button>
+      <button id="start-button" disabled>loading...</button>
+    </div>
+    <div id="hud" class="hidden">
+      <div id = "topper">
+    <span id = "level">Level 1</span>
+        <span id = "customer">Customer 1</span>
+      <span id = "score">Score 0 </span>
+      </div>
+      <div id = "order">
+          <h3>order</h3>
+          <ul id = "order-list"></ul>
+      </div>
+      <p id = "instructions"> hold space to pour the ingredients </p>
+
+
     </div>
     <script type="module" src="./main.js"></script>
   </body>
