@@ -44,8 +44,8 @@ RAPIER.init().then(() => new GLTFLoader().loadAsync('/models/bowlnew.glb')).then
 
 function updateHUD() {
   levelElm.textContent = `Level: ${state.level}`;
-  customerElm.textContent = 'Customer ${state.customer}';
-  scoreElm.textContent = 'Score ${state.score}';
+  customerElm.textContent = `Customer ${state.customer}`;
+  scoreElm.textContent = `Score ${state.score}`;
   if(state.step > 5) return;
   const li = orderlist.children[state.step];
   if (!li) return;
@@ -113,12 +113,63 @@ window.addEventListener('resize', () =>{
   render.setSize(window.innerWidth, window.innerHeight);
 });
 
+
+function ApplyPhysics(){
+  world = new RAPIER.World({x:0, y: -9.81, z:0});
+  const bot = world.createRigidBody(RAPIER.RigidBodyDesc.fixed().setTranslation(0, - 0.05, 0));
+    world.createCollider(RAPIER.ColliderDesc.cylinder(0.05, 0.335), bot);
+  const walls = world.createRigidBody(RAPIER.RigidBodyDesc.fixed().setTranslation(0,0.15,0));
+  for(let i = 0; i<16; i++){
+    const a = i/16 * Math.PI*2;
+    world.createCollider(
+      RAPIER.ColliderDesc.cuboid(0.015, 0.15, 0.077).setTranslation(Math.cos(a) * 0.35,0,Math.sin(a)*0.35).setRotation({x:0, y:Math.sin(-a/2), z:0, w: Math.cos(-a/2)}),
+      walls
+    );
+  }
+}
+function tol(){
+  return Math.max(0.05, 0.13 - (state.level - 1) * 0.01);
+}
+function Add(){
+  state.step = 0;
+  state.drop = 0;
+  state.pour = 0;
+  state.spill = 0;
+  blocked = spacedown;
+  state.targets = [];
+  orderlist.innerHTML = '';
+  for(let i = 0; i<6; i++){
+    state.targets[i] = (14 + state.level * 2 + Math.floor(Math.random() * 16)) * 2;
+    orderlist.innerHTML += '<li><span>' + ingredients[i] + '</span><span>' + state.targets[i] + '</span></li>';
+  }
+  for (const g of allgrain) {world.removeRigidBody(g.body); view.remove(g.mesh); }
+  allgrain.length = 0;
+  updateHUD();
+}
+function drop(offset){
+  const body = world.createRigidBody(
+    RAPIER.RigidBodyDesc.dynamic().setTranslation(offset + (Math.random() - 0.5) * 0.05, 0.5, (Math.random() - 0.5) * 0.05).setLinearDamping(0.03).setCcdEnabled(true)
+  );
+  world.createCollider(
+    RAPIER.ColliderDesc.ball(sizes[state.step]).setRestitution(0.05).setFriction(0.85),
+    body
+  );
+  const mesh = new THREE.Mesh(shapes[state.step], material[state.step]);
+  mesh.rotation.set(Math.random() * 3, Math.random() * 3, Math.random() * 3);
+  view.add(mesh);
+  allgrain.push({body,mesh});
+  if(allgrain.length > 600){
+    const old = allgrain.shift();
+    world.removeRigidBody(old.body);
+    view.remove(old.mesh);
+  }
+}
 function setMode(newMode) {
   mode = newMode;
   menuElm.classList.toggle('hidden', mode !== 'menu');
   hudElm.classList.toggle('hidden', mode !== 'playing');
   updateHUD();
-  if (mode === 'playing') initgame();
+  if (mode === 'playing') {initgame(); Add();};
 }
 startBt.addEventListener('click', () => setMode('playing')); 
 setMode('menu');
