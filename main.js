@@ -48,7 +48,7 @@ const allgrain = []
 const sizes = [0.057, 0.036, 0.043, 0.03, 0.028, 0.038];
 const shapes = [];
 let bowl = null, last = 0, spacedown = false, world = null,  pouring = false, armed = true;
-RAPIER.init().then(() => new GLTFLoader().loadAsync('/models/bowlnew.glb')).then((gltf) => {bowl = gltf.scene; startBt.disabled = false; startBt.textContent = 'Start Game'});
+RAPIER.init().then(() => new GLTFLoader().loadAsync(import.meta.env.BASE_URL + '/models/bowlnew.glb')).then((gltf) => {bowl = gltf.scene; startBt.disabled = false; startBt.textContent = 'Start Game'});
 
 function updateHUD() {
   levelElm.textContent = `Level: ${state.level}`;
