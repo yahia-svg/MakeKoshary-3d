@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>makekoshary-3d</title>
+    <script type="module" crossorigin src="./assets/index-B6XuJx57.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-BjE3bjOw.css">
+  </head>
+  <body>
+    
+    <div id="menu">
+      <h1>Make Koshary</h1>
+      <p> Don't spill the ingredients!</p>
+      <button id="start-button" disabled>loading...</button>
+    </div>
+    <div id="hud" class="hidden">
+      <div id = "topper">
+    <span id = "level">Level 1</span>
+        <span id = "customer">Customer 1</span>
+      <span id = "score">Score 0 </span>
+      </div>
+      <div id = "order">
+          <h3>order</h3>
+          <ul id = "order-list"></ul>
+      </div>
+      <div id = "pourbar" class = "hidden">
+      <div id="pourhead">
+          <span id = "pourname"></span>
+          <span id = "pourlabel"> 0 / 0</span>
+      </div>  
+      <div id ="pourtrack">
+        <div id = "pourband"></div>
+        <div id = "pourfill"></div>
+        <div id = "pourmark"></div>
+      </div>
+      </div>
+      <p id = "instructions"> hold space to pour the ingredients let go on target</p>
+    <div id = "result" class="hidden">
+        <h2 id = "result-title"> Finished</h2>
+        <p id = "result-detail"></p>
+        <button id="next-button">Next</button>
+    </div>
+
+    </div>
+  </body>
+</html>
