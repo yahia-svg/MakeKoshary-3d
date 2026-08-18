@@ -1,8 +1,8 @@
 # Welcome To MakeKoshary 3D! 
 
-![Image] ("C:\Users\YAHIAPC\Desktop\MakeKoshary-3d\public\textures\Screenshot 2026-08-17 182604.png")
+![Image](public/textures/Screenshot%202026-08-17%20182604.png)
 
-MakeKoshary 3D is a game about running a small food stall and making a delicous local dish **koshary** in a small Egyptian village inspired by home village.
+MakeKoshary 3D is a game about running a small food stall and making a delicous egyptian local dish **koshary** in a small Egyptian village inspired by home village.
 
 ### How to Play
 
